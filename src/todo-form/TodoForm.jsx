@@ -8,6 +8,12 @@ const TodoForm = ({ addNewTodo }) => {
     setInput(event.target.value);
   };
 
+  const addTodoClickHandler = () => {
+    if (!input) return;
+    addNewTodo(input);
+    setInput("");
+  };
+
   return (
     <div className="todo-form">
       <input
@@ -19,7 +25,7 @@ const TodoForm = ({ addNewTodo }) => {
       />
       <button
         type="submit"
-        onClick={() => addNewTodo(input)}
+        onClick={addTodoClickHandler}
         className="btn todo-form__button"
       >
         add todo

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+
 import ControlAllTodos from "../control-all-todos/ControlAllTodos";
 import TodoForm from "../todo-form/TodoForm";
 import TodoItem from "../todo-item/TodoItem";
 import UpdateTodoForm from "../update-todo-form/UpdateTodoForm";
+import ErrorMessage from "../error-message/ErrorMessage";
+
 import "./Todo.styles.scss";
 
 const data = [
@@ -16,19 +19,36 @@ const Todo = () => {
   const [todos, setTodos] = useState(data);
   const [currentItem, setCurrentItem] = useState(null);
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [showError, setShowError] = useState(false);
 
-  const addNewTodo = (title) => {
-    setTodos((prevState) => [
-      ...prevState,
-      {
-        id: Math.round(Math.random() * 1000),
-        title: title.trim(),
-      },
-    ]);
+  const addNewTodo = (inputTitle) => {
+    const checked = todos.map(({ title }) => {
+      if (title.toLocaleLowerCase() === inputTitle.toLocaleLowerCase()) {
+        setShowError(true);
+        return true;
+      }
+      return false;
+    });
+
+    if (checked.includes(true)) {
+      return;
+    } else {
+      setTodos((prevState) => {
+        return [
+          ...prevState,
+          {
+            id: Math.round(Math.random() * 1000),
+            title: inputTitle.trim(),
+          },
+        ];
+      });
+      setShowError(false);
+    }
   };
 
   const deleteHandler = (todoId) => {
     setTodos(todos.filter(({ id }) => id !== todoId));
+    setShowUpdateForm(false);
   };
 
   const editHandler = (id) => {
@@ -36,15 +56,31 @@ const Todo = () => {
     setShowUpdateForm(true);
   };
 
-  const doneHandler = (todoId) => {
+  const doneHandler = (todoId, todoItemCompletionState) => {
     const item = todos.find(({ id }) => id === todoId);
     item.isDone = true;
+    todoItemCompletionState(true);
   };
 
-  const updateHandler = (title) => {
+  const updateHandler = (updatedTitle) => {
     const item = todos.find(({ id }) => id === currentItem);
-    item.title = title.trim();
-    setShowUpdateForm(false);
+
+    const checked = todos.map(({ title }) => {
+      if (updatedTitle.toLocaleLowerCase() === title.toLocaleLowerCase()) {
+        setShowError(true);
+        return true;
+      }
+      return false;
+    });
+
+    if (checked.includes(true)) {
+      setShowError(true);
+      return;
+    } else {
+      item.title = updatedTitle.trim();
+      setShowUpdateForm(false);
+      setShowError(false);
+    }
   };
 
   const deleteAllTodosHandler = () => {
@@ -61,9 +97,12 @@ const Todo = () => {
 
   return (
     <div className="todo">
+      {/* show error */}
+
       <div className="todo__container">
         {/* form */}
         <TodoForm addNewTodo={addNewTodo} />
+        {showError ? <ErrorMessage /> : null}
         {/* controlling all todos */}
         <ControlAllTodos
           deleteAllTodosHandler={deleteAllTodosHandler}
@@ -73,13 +112,15 @@ const Todo = () => {
       </div>
       {/* update todo */}
       {showUpdateForm ? <UpdateTodoForm updateHandler={updateHandler} /> : null}
+
       {/* list */}
-      <div className="todo__list">
+      <ul className="todo__list">
         {" "}
         {todos.length > 0 ? (
-          todos.map(({ id, title }) => {
+          todos.map(({ id, title, isDone }) => {
             return (
               <TodoItem
+                checked={isDone}
                 key={id}
                 id={id}
                 title={title}
@@ -92,7 +133,7 @@ const Todo = () => {
         ) : (
           <h1 className="todo__empty">No Todos</h1>
         )}
-      </div>
+      </ul>
     </div>
   );
 };

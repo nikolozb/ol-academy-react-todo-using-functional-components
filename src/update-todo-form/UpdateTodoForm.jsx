@@ -8,6 +8,11 @@ const UpdateTodoForm = ({ updateHandler }) => {
     setInput(event.target.value);
   };
 
+  const onUpdateClickHandler = () => {
+    if (!input) return;
+    updateHandler(input);
+  };
+
   return (
     <div className="update-todo">
       <input
@@ -18,7 +23,7 @@ const UpdateTodoForm = ({ updateHandler }) => {
       />
       <button
         type="submit"
-        onClick={() => updateHandler(input)}
+        onClick={onUpdateClickHandler}
         className="btn update-todo__button"
       >
         update
