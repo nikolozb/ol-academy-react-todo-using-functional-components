@@ -10,6 +10,7 @@ const UpdateTodoForm = ({ updateHandler }) => {
 
   const onUpdateClickHandler = () => {
     if (!input) return;
+    setInput("");
     updateHandler(input);
   };
 

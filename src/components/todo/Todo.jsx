@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import ControlAllTodos from "../control-all-todos/ControlAllTodos";
-import TodoForm from "../todo-form/TodoForm";
-import TodoItem from "../todo-item/TodoItem";
-import UpdateTodoForm from "../update-todo-form/UpdateTodoForm";
-import ErrorMessage from "../error-message/ErrorMessage";
+import ControlAllTodos from "../../components/control-all-todos/ControlAllTodos";
+import TodoForm from "../../components/todo-form/TodoForm";
+import TodoItem from "../../components/todo-item/TodoItem";
+import UpdateTodoForm from "../../components/update-todo-form/UpdateTodoForm";
+import ErrorMessage from "../../components/error-message/ErrorMessage";
 
 import "./Todo.styles.scss";
 

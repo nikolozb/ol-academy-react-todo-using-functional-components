@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MoveTasks from "../move-tasks/MoveTasks";
+import MoveTasks from "../../components/move-tasks/MoveTasks";
 import "./TodoItem.styles.scss";
 
 const TodoItem = ({
