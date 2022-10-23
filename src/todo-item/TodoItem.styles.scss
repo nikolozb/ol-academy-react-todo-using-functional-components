@@ -1,5 +1,25 @@
 .todo-item {
   display: flex;
   justify-content: space-between;
-  width: 300px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  padding: 6px 15px;
+  align-items: center;
+
+  &__buttons {
+    display: flex;
+    column-gap: 8px;
+  }
+
+  &__edit {
+    background-color: rgb(65, 65, 255);
+  }
+
+  &__done {
+    background-color: rgb(50, 246, 181);
+  }
+
+  &__delete {
+    background-color: red;
+  }
 }

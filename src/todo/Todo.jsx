@@ -43,7 +43,7 @@ const Todo = () => {
 
   const updateHandler = (title) => {
     const item = todos.find(({ id }) => id === currentItem);
-    item.title = title;
+    item.title = title.trim();
     setShowUpdateForm(false);
   };
 
@@ -60,30 +60,39 @@ const Todo = () => {
   };
 
   return (
-    <div>
-      {/* form */}
-      <TodoForm addNewTodo={addNewTodo} />
-      {/* controlling all todos */}
-      <ControlAllTodos
-        deleteAllTodosHandler={deleteAllTodosHandler}
-        deleteCompletedTodosHandler={deleteCompletedTodosHandler}
-        deleteIncompleteTodosHandler={deleteIncompleteTodosHandler}
-      />
+    <div className="todo">
+      <div className="todo__container">
+        {/* form */}
+        <TodoForm addNewTodo={addNewTodo} />
+        {/* controlling all todos */}
+        <ControlAllTodos
+          deleteAllTodosHandler={deleteAllTodosHandler}
+          deleteCompletedTodosHandler={deleteCompletedTodosHandler}
+          deleteIncompleteTodosHandler={deleteIncompleteTodosHandler}
+        />
+      </div>
       {/* update todo */}
       {showUpdateForm ? <UpdateTodoForm updateHandler={updateHandler} /> : null}
       {/* list */}
-      {todos.map(({ id, title }) => {
-        return (
-          <TodoItem
-            key={id}
-            id={id}
-            title={title}
-            deleteHandler={deleteHandler}
-            editHandler={editHandler}
-            doneHandler={doneHandler}
-          />
-        );
-      })}
+      <div className="todo__list">
+        {" "}
+        {todos.length > 0 ? (
+          todos.map(({ id, title }) => {
+            return (
+              <TodoItem
+                key={id}
+                id={id}
+                title={title}
+                deleteHandler={deleteHandler}
+                editHandler={editHandler}
+                doneHandler={doneHandler}
+              />
+            );
+          })
+        ) : (
+          <h1 className="todo__empty">No Todos</h1>
+        )}
+      </div>
     </div>
   );
 };

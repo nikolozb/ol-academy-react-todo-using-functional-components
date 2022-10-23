@@ -7,10 +7,16 @@ const ControlAllTodos = ({
   deleteIncompleteTodosHandler,
 }) => {
   return (
-    <div>
-      <button onClick={deleteAllTodosHandler}>delete all todos</button>
-      <button onClick={deleteCompletedTodosHandler}>delete completed</button>
-      <button onClick={deleteIncompleteTodosHandler}>delete incomplete</button>
+    <div className="control">
+      <button onClick={deleteAllTodosHandler} className="control__btn">
+        delete all todos
+      </button>
+      <button onClick={deleteCompletedTodosHandler} className="control__btn">
+        delete completed
+      </button>
+      <button onClick={deleteIncompleteTodosHandler} className="control__btn">
+        delete incomplete
+      </button>
     </div>
   );
 };

@@ -9,9 +9,18 @@ const UpdateTodoForm = ({ updateHandler }) => {
   };
 
   return (
-    <div>
-      <input type="text" value={input} onChange={inputChangeHandler} />
-      <button type="submit" onClick={() => updateHandler(input)}>
+    <div className="update-todo">
+      <input
+        type="text"
+        value={input}
+        onChange={inputChangeHandler}
+        className="update-todo__input"
+      />
+      <button
+        type="submit"
+        onClick={() => updateHandler(input)}
+        className="btn update-todo__button"
+      >
         update
       </button>
     </div>
