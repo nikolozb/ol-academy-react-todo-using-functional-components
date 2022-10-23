@@ -34,8 +34,8 @@ const TodoItem = ({
         >
           delete
         </button>
+        <MoveTasks id={id} todos={todos} setTodos={setTodos} />
       </div>
-      <MoveTasks id={id} todos={todos} setTodos={setTodos} />
     </li>
   );
 };
