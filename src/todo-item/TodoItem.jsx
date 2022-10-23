@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MoveTasks from "../move-tasks/MoveTasks";
 import "./TodoItem.styles.scss";
 
 const TodoItem = ({
@@ -8,6 +9,8 @@ const TodoItem = ({
   editHandler,
   doneHandler,
   checked,
+  todos,
+  setTodos,
 }) => {
   const [done, setDone] = useState(checked);
 
@@ -32,6 +35,7 @@ const TodoItem = ({
           delete
         </button>
       </div>
+      <MoveTasks id={id} todos={todos} setTodos={setTodos} />
     </li>
   );
 };

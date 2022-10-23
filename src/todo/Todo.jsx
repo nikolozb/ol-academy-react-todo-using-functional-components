@@ -127,6 +127,8 @@ const Todo = () => {
                 deleteHandler={deleteHandler}
                 editHandler={editHandler}
                 doneHandler={doneHandler}
+                todos={todos}
+                setTodos={setTodos}
               />
             );
           })
