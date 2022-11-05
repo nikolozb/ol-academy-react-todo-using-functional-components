@@ -73,11 +73,11 @@ const Todo = () => {
   };
 
   const deleteCompletedTodosHandler = () => {
-    setTodos(todos.filter(({ isDone }) => isDone === false));
+    setTodos(todos.filter(({ isDone }) => !isDone));
   };
 
   const deleteIncompleteTodosHandler = () => {
-    setTodos(todos.filter(({ isDone }) => isDone === true));
+    setTodos(todos.filter(({ isDone }) => isDone));
   };
 
   return (
