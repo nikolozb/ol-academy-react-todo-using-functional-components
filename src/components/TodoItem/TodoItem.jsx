@@ -2,29 +2,34 @@ import React, { useState } from "react";
 import MoveTasks from "../../components/MoveTasks/MoveTasks";
 import "./TodoItem.styles.scss";
 
-const TodoItem = ({
+function TodoItem({
   id,
   title,
   deleteHandler,
   editHandler,
   doneHandler,
   checked,
+  checkedHandler,
   todos,
   setTodos,
-}) => {
-  const [done, setDone] = useState(checked);
+}) {
+  const [check, setCheck] = useState(checked);
 
   return (
     <li className="todo-item">
       <span className="todo-item__title">
         <input
           type="checkbox"
-          checked={done}
-          onClick={() => doneHandler(id, (value) => setDone(value))}
+          checked={check}
+          onClick={() => checkedHandler(id, (value) => setCheck(value))}
+          onChange={() => {}}
         />
         {title}
       </span>
       <div className="todo-item__buttons">
+        <button className="btn todo-item__done" onClick={() => doneHandler(id)}>
+          done
+        </button>
         <button className="btn todo-item__edit" onClick={() => editHandler(id)}>
           edit
         </button>
@@ -38,6 +43,6 @@ const TodoItem = ({
       </div>
     </li>
   );
-};
+}
 
 export default TodoItem;

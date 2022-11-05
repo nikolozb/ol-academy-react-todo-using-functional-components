@@ -9,10 +9,10 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import "./Todo.styles.scss";
 
 const data = [
-  { id: 1, title: "task1", isDone: false },
-  { id: 2, title: "task2", isDone: false },
-  { id: 3, title: "task3", isDone: false },
-  { id: 4, title: "task4", isDone: false },
+  { id: 1, title: "task1", isDone: false, isChecked: false },
+  { id: 2, title: "task2", isDone: false, isChecked: false },
+  { id: 3, title: "task3", isDone: false, isChecked: false },
+  { id: 4, title: "task4", isDone: false, isChecked: false },
 ];
 
 const Todo = () => {
@@ -49,10 +49,15 @@ const Todo = () => {
     setShowUpdateForm(true);
   };
 
-  const doneHandler = (todoId, todoItemCompletionState) => {
+  const checkedHandler = (todoId, todoItemCompletionState) => {
     const item = todos.find(({ id }) => id === todoId);
-    item.isDone = true;
+    item.isChecked = !item.isChecked;
     todoItemCompletionState(true);
+  };
+
+  const doneHandler = (todoId) => {
+    const item = todos.find(({ id }) => id === todoId);
+    item.isDone = !item.isDone;
   };
 
   const updateHandler = (updatedTitle) => {
@@ -116,6 +121,7 @@ const Todo = () => {
                 deleteHandler={deleteHandler}
                 editHandler={editHandler}
                 doneHandler={doneHandler}
+                checkedHandler={checkedHandler}
                 todos={todos}
                 setTodos={setTodos}
               />
