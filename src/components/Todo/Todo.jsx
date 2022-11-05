@@ -63,7 +63,7 @@ const Todo = () => {
     );
     setShowError(!!itemExists);
     if (!itemExists) {
-      currentItem.title = updatedTitle.trim();
+      setCurrentItem((prevState) => (prevState.title = updatedTitle.trim()));
       setShowUpdateForm(false);
     }
   };
