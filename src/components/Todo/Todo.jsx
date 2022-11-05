@@ -22,27 +22,20 @@ const Todo = () => {
   const [showError, setShowError] = useState(false);
 
   const addNewTodo = (inputTitle) => {
-    const checked = todos.map(({ title }) => {
-      if (title.toLocaleLowerCase() === inputTitle.toLocaleLowerCase().trim()) {
-        setShowError(true);
-        return true;
-      }
-      return false;
-    });
-
-    if (checked.includes(true)) {
-      return;
-    } else {
-      setTodos((prevState) => {
-        return [
-          ...prevState,
-          {
-            id: Math.round(Math.random() * 1000),
-            title: inputTitle.trim(),
-          },
-        ];
-      });
-      setShowError(false);
+    const itemExists = todos.find(
+      ({ title }) =>
+        title.trim().toLocaleLowerCase() ===
+        inputTitle.trim().toLocaleLowerCase()
+    );
+    setShowError(!!itemExists);
+    if (!itemExists) {
+      setTodos((prevState) => [
+        ...prevState,
+        {
+          id: Math.round(Math.random() * 1000),
+          title: inputTitle.trim(),
+        },
+      ]);
     }
   };
 
@@ -63,21 +56,15 @@ const Todo = () => {
   };
 
   const updateHandler = (updatedTitle) => {
-    const checked = todos.map(({ title }) => {
-      if (updatedTitle.toLocaleLowerCase() === title.toLocaleLowerCase()) {
-        setShowError(true);
-        return true;
-      }
-      return false;
-    });
-
-    if (checked.includes(true)) {
-      setShowError(true);
-      return;
-    } else {
+    const itemExists = todos.find(
+      ({ title }) =>
+        title.trim().toLocaleLowerCase() ===
+        updatedTitle.trim().toLocaleLowerCase()
+    );
+    setShowError(!!itemExists);
+    if (!itemExists) {
       currentItem.title = updatedTitle.trim();
       setShowUpdateForm(false);
-      setShowError(false);
     }
   };
 
