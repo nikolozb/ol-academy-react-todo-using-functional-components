@@ -87,7 +87,7 @@ const Todo = () => {
       <div className="todo__container">
         {/* form */}
         <TodoForm addNewTodo={addNewTodo} />
-        {showError ? <ErrorMessage /> : null}
+        {showError && <ErrorMessage />}
         {/* controlling all todos */}
         <ControlAllTodos
           deleteAllTodosHandler={deleteAllTodosHandler}
@@ -96,16 +96,15 @@ const Todo = () => {
         />
       </div>
       {/* update todo */}
-      {showUpdateForm ? (
+      {showUpdateForm && (
         <UpdateTodoForm
           updateHandler={updateHandler}
           currentItem={currentItem}
         />
-      ) : null}
+      )}
 
       {/* list */}
       <ul className="todo__list">
-        {" "}
         {todos.length > 0 ? (
           todos.map(({ id, title, isDone }) => {
             return (
