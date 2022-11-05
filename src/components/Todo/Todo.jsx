@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import ControlAllTodos from "../../components/control-all-todos/ControlAllTodos";
-import TodoForm from "../../components/todo-form/TodoForm";
-import TodoItem from "../../components/todo-item/TodoItem";
-import UpdateTodoForm from "../../components/update-todo-form/UpdateTodoForm";
-import ErrorMessage from "../../components/error-message/ErrorMessage";
+import ControlAllTodos from "../../components/ControlAllTodos/ControlAllTodos";
+import TodoForm from "../TodoForm/TodoForm";
+import TodoItem from "../TodoItem/TodoItem";
+import UpdateTodoForm from "../UpdateTodoForm/UpdateTodoForm";
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 import "./Todo.styles.scss";
 
@@ -23,7 +23,7 @@ const Todo = () => {
 
   const addNewTodo = (inputTitle) => {
     const checked = todos.map(({ title }) => {
-      if (title.toLocaleLowerCase() === inputTitle.toLocaleLowerCase()) {
+      if (title.toLocaleLowerCase() === inputTitle.toLocaleLowerCase().trim()) {
         setShowError(true);
         return true;
       }
@@ -51,8 +51,8 @@ const Todo = () => {
     setShowUpdateForm(false);
   };
 
-  const editHandler = (id) => {
-    setCurrentItem(id);
+  const editHandler = (elid) => {
+    setCurrentItem(todos.find(({ id }) => id === elid));
     setShowUpdateForm(true);
   };
 
@@ -63,8 +63,6 @@ const Todo = () => {
   };
 
   const updateHandler = (updatedTitle) => {
-    const item = todos.find(({ id }) => id === currentItem);
-
     const checked = todos.map(({ title }) => {
       if (updatedTitle.toLocaleLowerCase() === title.toLocaleLowerCase()) {
         setShowError(true);
@@ -77,7 +75,7 @@ const Todo = () => {
       setShowError(true);
       return;
     } else {
-      item.title = updatedTitle.trim();
+      currentItem.title = updatedTitle.trim();
       setShowUpdateForm(false);
       setShowError(false);
     }
@@ -111,7 +109,12 @@ const Todo = () => {
         />
       </div>
       {/* update todo */}
-      {showUpdateForm ? <UpdateTodoForm updateHandler={updateHandler} /> : null}
+      {showUpdateForm ? (
+        <UpdateTodoForm
+          updateHandler={updateHandler}
+          currentItem={currentItem}
+        />
+      ) : null}
 
       {/* list */}
       <ul className="todo__list">

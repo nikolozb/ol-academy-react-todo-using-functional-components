@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./UpdateTodoForm.styles.scss";
 
-const UpdateTodoForm = ({ updateHandler }) => {
-  const [input, setInput] = useState("");
+const UpdateTodoForm = ({ updateHandler, currentItem }) => {
+  const [input, setInput] = useState(currentItem.title);
 
   const inputChangeHandler = (event) => {
     setInput(event.target.value);
@@ -18,7 +18,7 @@ const UpdateTodoForm = ({ updateHandler }) => {
     <div className="update-todo">
       <input
         type="text"
-        value={input}
+        defaultValue={input}
         onChange={inputChangeHandler}
         className="update-todo__input"
       />
