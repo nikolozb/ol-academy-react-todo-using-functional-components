@@ -52,7 +52,7 @@ const Todo = () => {
   const checkedHandler = (todoId, todoItemCompletionState) => {
     const item = todos.find(({ id }) => id === todoId);
     item.isChecked = !item.isChecked;
-    todoItemCompletionState(true);
+    console.log(todos);
   };
 
   const doneHandler = (todoId) => {

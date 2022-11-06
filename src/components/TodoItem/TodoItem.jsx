@@ -20,9 +20,11 @@ function TodoItem({
       <span className="todo-item__title">
         <input
           type="checkbox"
-          checked={check}
-          onClick={() => checkedHandler(id, (value) => setCheck(value))}
-          onChange={() => {}}
+          value={check}
+          onClick={() => checkedHandler(id)}
+          onChange={(e) => {
+            setCheck(e.target.value);
+          }}
         />
         {title}
       </span>
